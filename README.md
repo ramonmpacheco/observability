@@ -90,6 +90,7 @@ output.elasticsearch:
   hosts: ["elasticsearch:9200"]
 ~~~
 > Access: ```http://localhost:5601/app/apm/services?rangeFrom=now-15m&rangeTo=now```
+> See more: ```https://www.elastic.co/guide/en/apm/guide/current/apm-quick-start.html```
 ___
 
 > To access Elastic via web: ```http://localhost:5601/```
