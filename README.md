@@ -34,7 +34,7 @@ setup.dashboards.enabled: true
 
 ### HEARTBEAT 
 > Check if the app is up
-> Create the file "heartbeat.yml" in the path " beats/heartbeat" with the content below:
+> Create the file "heartbeat.yml" in the path "beats/heartbeat" with the content below:
 ~~~yml
 heartbeat.monitors:
 - type: http
@@ -61,6 +61,35 @@ output.elasticsearch:
   password: 'changeme'
 ~~~
 > Access: http://localhost:5601/app/uptime
+
+### APM (application performance monitoring)
+> Create the file "apm-server.yml" in the path "apm" with the content below:
+~~~yml
+apm-server:
+  host: "0.0.0.0:8200"
+
+  rum:
+    enabled: true
+    allow_origins: ['*']
+    library_pattern: "node_modules|bower_components|~"
+    exclude_from_grouping: "^/webpack"
+    source_mapping:
+      enabled: true
+      elasticsearch:
+        hosts: ["localhost:9200"]
+        username: "elastic"
+        password: "changeme"
+        expiration: 5m
+      index_pattern: "apm-*-sourcemap*"
+
+  kibana:
+    enabled: true
+    host: "kibana:5601"
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+~~~
+> Access: ```http://localhost:5601/app/apm/services?rangeFrom=now-15m&rangeTo=now```
 ___
 
 > To access Elastic via web: ```http://localhost:5601/```
